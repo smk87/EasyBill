@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 //Importing api modules
 const user = require("./api/user");
+const bill = require("./api/bill");
 
 //Initialize express app
 const app = express();
@@ -26,6 +27,7 @@ const port = process.env.PORT || 3000;
 //Routes
 app.get("", (req, res) => res.send("hello world"));
 app.use("/api/user", user);
+app.use("/api/bill", bill);
 
 //Starting server
 app.listen(port, () => console.log(`Server running on port ${port}...`));

@@ -11,8 +11,10 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.17",
     "nodemon": "^1.18.10",
+    "passport": "^0.4.0",
     "validator": "^10.11.0"
   }
 }
