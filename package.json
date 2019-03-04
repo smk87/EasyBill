@@ -1,0 +1,18 @@
+{
+  "name": "easybill",
+  "version": "1.0.0",
+  "description": "A web app to easily calculate bill for house owner.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Saqlain Mahmud",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.17",
+    "nodemon": "^1.18.10",
+    "validator": "^10.11.0"
+  }
+}
