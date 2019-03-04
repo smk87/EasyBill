@@ -6,13 +6,17 @@ const Bill = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  cutomername: {
+  customername: {
     type: String,
     required: true
   },
   position: {
     type: String,
     required: true
+  },
+  current: {
+    type: Boolean,
+    default: true
   },
   basebill: {
     type: Number
@@ -21,6 +25,9 @@ const Bill = new Schema({
     type: Number
   },
   waterbill: {
+    type: Number
+  },
+  otherbill: {
     type: Number
   },
   oldunit: [
