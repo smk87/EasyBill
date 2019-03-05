@@ -30,11 +30,9 @@ const Bill = new Schema({
   otherbill: {
     type: Number
   },
-  oldunit: [
-    {
-      type: Number
-    }
-  ],
+  oldunit: {
+    type: Number
+  },
   newunit: {
     type: Number
   },
@@ -59,4 +57,4 @@ const Bill = new Schema({
   ]
 });
 
-module.exports = mongoose.model("bill", Bill);
+module.exports = mongoose.model("bills", Bill);

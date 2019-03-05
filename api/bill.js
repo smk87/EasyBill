@@ -40,13 +40,32 @@ router.post(
       if (req.body.oldunit) newCustomer.oldunit = req.body.oldunit;
       if (req.body.newunit) newCustomer.newunit = req.body.newunit;
 
-      console.log(newCustomer);
-      //res.json(newCustomer);
+      Bill.findOne({
+        customername: req.body.customername,
+        position: req.body.position
+      }).then(customer => {
+        if (customer) {
+          //Edit
+          Bill.findOneAndUpdate(
+            {
+              customername: req.body.customername,
+              position: req.body.position
+            },
+            { $set: newCustomer },
+            { new: true }
+          ).then(customer => res.json(customer));
+        } else {
+          //Add
 
-      new Bill(newCustomer)
-        .save()
-        .then(bill => res.json(bill))
-        .catch(err => console.log(err));
+          //console.log(newCustomer);
+          //res.json(newCustomer);
+
+          new Bill(newCustomer)
+            .save()
+            .then(bill => res.json(bill))
+            .catch(err => console.log(err));
+        }
+      });
     } else {
       res.json(errors);
     }
