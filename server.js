@@ -29,7 +29,7 @@ mongoose
   .catch(err => console.log(err));
 
 //Setting port for server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 //Routes
 app.get("", (req, res) => res.send("hello world"));

@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: url(img/bg5.jpg) no-repeat center center fixed;
+  background-size: cover;
+  font-size: 20px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+hr {
+  height: 1px;
+  border-top: 2px solid whitesmoke;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.formspace {
+  background-color: #0a3d62;
+  border-radius: 10px;
+  padding-top: 10px;
+}
+
+.btn-custom {
+  background-color: #0a3d62;
+  border-radius: 15px;
+  color: white;
+}
+
+.tableback {
+  margin-top: 30px;
+  background-color: white;
+  opacity: 0.8;
+  border-radius: 25px;
+  border: 0;
+}
