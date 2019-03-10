@@ -31,7 +31,7 @@ router.post("/register", (req, res) => {
     User.findOne({ username: req.body.username }).then(user => {
       if (user) {
         errors.username = "User already exist";
-        res.json(errors);
+        res.status(400).json(errors);
       } else {
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -49,7 +49,7 @@ router.post("/register", (req, res) => {
       }
     });
   } else {
-    res.json(errors);
+    res.status(400).json(errors);
   }
 });
 
@@ -62,6 +62,7 @@ router.post("/login", (req, res) => {
   User.findOne({ username: username }).then(user => {
     if (!user) {
       errors.username = "User does not exist";
+      res.status(404);
       res.json(errors);
     } else {
       //Check password
@@ -80,6 +81,7 @@ router.post("/login", (req, res) => {
           });
         } else {
           errors.password = "Password is incorrect";
+          res.status(400);
           res.json(errors);
         }
       });

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class LogIn extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class LogIn extends Component {
             <form>
               <div className="row" style={{ "border-radius": "10px" }}>
                 <h3 className="text-center mx-auto" style={{ color: "white" }}>
-                  Sign Up
+                  Log In
                 </h3>
               </div>
               <hr />
@@ -19,11 +20,11 @@ export default class LogIn extends Component {
                   className="col-sm-3 col-form-label"
                   style={{ color: "white" }}
                 >
-                  Email
+                  Username
                 </label>
                 <div className="col-12">
                   <input
-                    type="email"
+                    type="text"
                     className="form-control"
                     id="inputEmail3"
                     placeholder="Email"
@@ -55,7 +56,7 @@ export default class LogIn extends Component {
                     className="btn btn-success"
                     style={{ width: "100px", "background-color": "#019031" }}
                   >
-                    Sign Up
+                    Log In
                   </button>
                 </div>
               </div>
@@ -63,9 +64,9 @@ export default class LogIn extends Component {
           </div>
         </div>
         <div className="row justify-content-center">
-          <a href="" style={{ color: "white" }}>
-            Already have an account?
-          </a>
+          <Link to="/signup" style={{ color: "white" }}>
+            Dont have an account?
+          </Link>
         </div>
       </div>
     );
