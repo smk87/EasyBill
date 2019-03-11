@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 //Import needed components
 import Form1 from "../inputs/Form1";
@@ -99,6 +100,11 @@ class LogIn extends Component {
     );
   }
 }
+
+LogIn.propTypes = {
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   auth: state.auth,

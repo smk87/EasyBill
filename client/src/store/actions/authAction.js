@@ -7,7 +7,7 @@ import setAuthToken from "./setAuthToken";
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/user/register", userData)
-    .then(res => history.push("/"))
+    .then(res => history.push("/login"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -29,7 +29,7 @@ export const loginUser = (userData, history) => dispatch => {
       setAuthToken(token);
       //Decode token to get user data
       const decoded = jwt_decode(token);
-      console.log(decoded);
+      dispatch(setCurrentUser(decoded));
       history.push("/dashboard");
     })
     .catch(err =>

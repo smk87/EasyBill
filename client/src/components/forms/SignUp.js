@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerUser } from "../../store/actions/authAction";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 //Import needed components
 import Form1 from "../inputs/Form1";
+//Import needed actions
+import { registerUser } from "../../store/actions/authAction";
 
 class SignUp extends Component {
   constructor(props) {
@@ -96,6 +98,11 @@ class SignUp extends Component {
     );
   }
 }
+
+SignUp.propTypes = {
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   auth: state.auth,

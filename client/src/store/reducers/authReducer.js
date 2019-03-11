@@ -9,6 +9,9 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_USER:
+      if (!action.payload.username) {
+        action.payload.username = "";
+      }
       return {
         ...state,
         isAuthenticated: !validate.isEmpty(action.payload.username, {
