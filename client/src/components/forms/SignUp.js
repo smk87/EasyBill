@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../store/actions/authAction";
 import { withRouter } from "react-router-dom";
-import { stat } from "fs";
+
+//Import needed components
 import Form1 from "../inputs/Form1";
 
 class SignUp extends Component {
@@ -30,6 +31,14 @@ class SignUp extends Component {
 
     this.props.registerUser(newUser, this.props.history);
   };
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      //Redirect to dashboard if logged in
+      this.props.history.push("/dashboard");
+    }
+  }
+
   render() {
     return (
       <div>

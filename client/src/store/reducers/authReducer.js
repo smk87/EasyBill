@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
     case SET_CURRENT_USER:
       return {
         ...state,
-        isAuthenticated: !validate.isEmpty(action.payload, {
+        isAuthenticated: !validate.isEmpty(action.payload.username, {
           ignore_whitespace: true
         }),
         user: action.payload

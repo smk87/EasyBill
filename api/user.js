@@ -62,8 +62,7 @@ router.post("/login", (req, res) => {
   User.findOne({ username: username }).then(user => {
     if (!user) {
       errors.username = "User does not exist";
-      res.status(404);
-      res.json(errors);
+      res.status(404).json(errors);
     } else {
       //Check password
       bcrypt.compare(password, user.password).then(isMatch => {
@@ -74,15 +73,14 @@ router.post("/login", (req, res) => {
           //Sign Token
           jwt.sign(payload, secret, { expiresIn: 3600 }, (err, token) => {
             if (err) console.log(err);
-            res.json({
+            res.status(200).json({
               success: true,
               token: "Bearer " + token
             });
           });
         } else {
           errors.password = "Password is incorrect";
-          res.status(400);
-          res.json(errors);
+          res.status(400).json(errors);
         }
       });
     }
