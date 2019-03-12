@@ -16,6 +16,8 @@ import SignUp from "./components/forms/SignUp";
 import LogIn from "./components/forms/LogIn";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/common/PrivateRoute";
+import HomeTitle from "./components/common/HomeTitle";
+import AddCustomer from "./components/add-customer/AddCustomer";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -43,18 +45,20 @@ class App extends Component {
         <Router>
           <div className="App">
             <NavBar />
-            <h1 className="text-center display-3" style={{ color: "white" }}>
-              EasyBill
-            </h1>
-            <p className="text-center" style={{ color: "white" }}>
-              Welcome to EasyBill. Sign Up or Login to easily generate bills.
-            </p>
+            <HomeTitle />
             <div className="container-fluid">
               <Route exact path="/" component={SignUp} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/login" component={LogIn} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/add-customer"
+                  component={AddCustomer}
+                />
               </Switch>
             </div>
           </div>

@@ -1,9 +1,10 @@
-import { GET_ERRORS, SET_CURRENT_USER } from "../actions/types";
+import { GET_ERRORS, SET_CURRENT_USER, SIGNUP_SUCCESS } from "../actions/types";
 import validate from "validator";
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  signupSuccess: false
 };
 
 export default function(state = initialState, action) {
@@ -18,6 +19,12 @@ export default function(state = initialState, action) {
           ignore_whitespace: true
         }),
         user: action.payload
+      };
+
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        signupSuccess: action.payload
       };
 
     default:

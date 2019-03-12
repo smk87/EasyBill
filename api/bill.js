@@ -33,12 +33,14 @@ router.post(
       newCustomer.position = req.body.position;
 
       //Check for optional input
+      if (req.body.meterno) newCustomer.meterno = req.body.meterno;
       if (req.body.gasbill) newCustomer.gasbill = req.body.gasbill;
       if (req.body.waterbill) newCustomer.waterbill = req.body.waterbill;
       if (req.body.basebill) newCustomer.basebill = req.body.basebill;
-      if (req.body.otherbill) newCustomer.otherbill = req.body.otherbill;
-      if (req.body.oldunit) newCustomer.oldunit = req.body.oldunit;
-      if (req.body.newunit) newCustomer.newunit = req.body.newunit;
+      if (req.body.garagebill) newCustomer.garagebill = req.body.garagebill;
+      if (req.body.wastebill) newCustomer.wastebill = req.body.wastebill;
+      if (req.body.electricitybill)
+        newCustomer.electricitybill = req.body.electricitybill;
 
       Bill.findOne({
         customername: req.body.customername,
@@ -53,7 +55,7 @@ router.post(
             },
             { $set: newCustomer },
             { new: true }
-          ).then(customer => res.json(customer));
+          ).then(customer => res.status(200).json(customer));
         } else {
           //Add
 
@@ -62,12 +64,12 @@ router.post(
 
           new Bill(newCustomer)
             .save()
-            .then(bill => res.json(bill))
+            .then(bill => res.status(200).json(bill))
             .catch(err => console.log(err));
         }
       });
     } else {
-      res.json(errors);
+      res.status(400).json(errors);
     }
   }
 );

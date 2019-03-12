@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 //Import needed components
 import Form1 from "../inputs/Form1";
 //Import needed actions
-import { loginUser } from "../../store/actions/authAction";
+import { loginUser, clearSuccess } from "../../store/actions/authAction";
 
 class LogIn extends Component {
   constructor(props) {
@@ -14,7 +14,8 @@ class LogIn extends Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      errors: {}
     };
   }
 
@@ -41,9 +42,27 @@ class LogIn extends Component {
     }
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({ errors: newProps.errors });
+  }
+
+  componentWillUnmount() {
+    this.props.clearSuccess();
+  }
+
   render() {
+    let success = "";
+    if (this.props.auth.signupSuccess) {
+      success = (
+        <h4 className="text-center mx-auto" style={{ color: "#7CEC9F" }}>
+          Signed Up Successfully. You Can Log In Now.
+        </h4>
+      );
+    }
+
     return (
       <div>
+        {success}
         <div className="row justify-content-center">
           <div className="col-7 col-sm-6 col-md-4 col-lg-3 formspace">
             <form onSubmit={this.onSubmit}>
@@ -60,7 +79,7 @@ class LogIn extends Component {
                 type="text"
                 placeholder="Enter Your Username"
                 value={this.state.username}
-                error={this.props.errors.username}
+                error={this.state.errors.username}
                 onChange={this.onChange}
               />
               <Form1
@@ -70,7 +89,7 @@ class LogIn extends Component {
                 type="password"
                 placeholder="Enter Your Password"
                 value={this.state.password}
-                error={this.props.errors.password}
+                error={this.state.errors.password}
                 onChange={this.onChange}
               />
               <div className="form-group row justify-content-center">
@@ -113,5 +132,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, clearSuccess }
 )(LogIn);

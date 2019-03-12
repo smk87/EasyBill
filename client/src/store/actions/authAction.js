@@ -1,4 +1,4 @@
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, SIGNUP_SUCCESS } from "./types";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./setAuthToken";
@@ -7,7 +7,13 @@ import setAuthToken from "./setAuthToken";
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/user/register", userData)
-    .then(res => history.push("/login"))
+    .then(res => {
+      dispatch({
+        type: SIGNUP_SUCCESS,
+        payload: true
+      });
+      history.push("/login");
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -56,4 +62,12 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+//Clear Signup success
+export const clearSuccess = () => dispatch => {
+  dispatch({
+    type: SIGNUP_SUCCESS,
+    payload: false
+  });
 };

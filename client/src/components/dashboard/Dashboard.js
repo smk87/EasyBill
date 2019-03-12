@@ -1,6 +1,21 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: ""
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ username: this.props.auth.user.username });
+  }
+
   render() {
     return (
       <div>
@@ -8,12 +23,15 @@ export default class Dashboard extends Component {
           className="row justify-content-center"
           style={{ marginTop: "150px" }}
         >
-          <h1 style={{ color: "white" }}>Welcome, User</h1>
+          <h1 style={{ color: "white" }}>
+            Welcome,{" "}
+            <span style={{ color: "#74B9FF" }}>{this.state.username}</span>
+          </h1>
         </div>
         <div className="row justify-content-center mt-4">
-          <a href="" className="btn btn-custom">
+          <Link to="/add-customer" className="btn btn-custom">
             Add Customer
-          </a>
+          </Link>
           <a href="" className="btn btn-custom ml-5">
             Generate Bills
           </a>
@@ -25,9 +43,9 @@ export default class Dashboard extends Component {
           className="table-responsive tableback mx-auto"
           style={{ width: "70%" }}
         >
+          <p className="text-center h3">Latest Bills</p>
           <table className="table table-striped">
             <thead>
-              <p className="text-center h3">Latest Bills</p>
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Postion</th>
@@ -61,3 +79,16 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+Dashboard.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Dashboard);

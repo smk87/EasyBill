@@ -14,7 +14,8 @@ class SignUp extends Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      errors: {}
     };
   }
 
@@ -41,6 +42,10 @@ class SignUp extends Component {
     }
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({ errors: newProps.errors });
+  }
+
   render() {
     return (
       <div>
@@ -60,7 +65,7 @@ class SignUp extends Component {
                 type="username"
                 placeholder="Enter Your Desired Username"
                 value={this.state.username}
-                error={this.props.errors.username}
+                error={this.state.errors.username}
                 onChange={this.onChange}
               />
               <Form1
@@ -70,7 +75,7 @@ class SignUp extends Component {
                 type="password"
                 placeholder="Enter Your Desired Password"
                 value={this.state.password}
-                error={this.props.errors.password}
+                error={this.state.errors.password}
                 onChange={this.onChange}
               />
 

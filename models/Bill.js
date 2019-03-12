@@ -10,6 +10,9 @@ const Bill = new Schema({
     type: String,
     required: true
   },
+  meterno: {
+    type: String
+  },
   position: {
     type: String,
     required: true
@@ -27,13 +30,13 @@ const Bill = new Schema({
   waterbill: {
     type: Number
   },
-  otherbill: {
+  garagebill: {
     type: Number
   },
-  oldunit: {
+  wastebill: {
     type: Number
   },
-  newunit: {
+  electricitybill: {
     type: Number
   },
   bills: [
@@ -44,13 +47,16 @@ const Bill = new Schema({
       water: {
         type: Number
       },
-      electrecity: {
+      electricity: {
         type: Number
       },
       base: {
         type: Number
       },
-      other: {
+      garage: {
+        type: Number
+      },
+      waste: {
         type: Number
       }
     }
