@@ -12,7 +12,7 @@ export default class Form1 extends Component {
         <div className="col-12">
           <input
             name={this.props.name}
-            type={this.props.password}
+            type={this.props.type}
             className={classnames("form-control", {
               "is-invalid": this.props.error
             })}

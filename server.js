@@ -7,6 +7,7 @@ const passport = require("passport");
 //Importing api modules
 const user = require("./api/user");
 const bill = require("./api/bill");
+const customer = require("./api/customer");
 
 //Initialize express app
 const app = express();
@@ -35,6 +36,7 @@ const port = process.env.PORT || 5000;
 app.get("", (req, res) => res.send("hello world"));
 app.use("/api/user", user);
 app.use("/api/bill", bill);
+app.use("/api/customer", customer);
 
 //Starting server
 app.listen(port, () => console.log(`Server running on port ${port}...`));

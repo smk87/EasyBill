@@ -35,9 +35,9 @@ class Dashboard extends Component {
           <a href="" className="btn btn-custom ml-5">
             Generate Bills
           </a>
-          <a href="" className="btn btn-custom ml-5">
-            Edit Customer
-          </a>
+          <Link to="/customers" className="btn btn-custom ml-5">
+            Customer List
+          </Link>
         </div>
         <div
           className="table-responsive tableback mx-auto"

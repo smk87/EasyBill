@@ -1,11 +1,42 @@
-import { ADD_CUSTOMER, GET_ERRORS } from "../actions/types";
+import {
+  ADD_CUSTOMER,
+  GET_ERRORS,
+  LOADING,
+  STOP_LOADING,
+  CLEAR_SUCCESS
+} from "../actions/types";
 
-const initialState = {};
+const initialState = {
+  loading: false,
+  addCustomerSuccess: false
+};
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case LOADING:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case STOP_LOADING:
+      return {
+        ...state,
+        loading: false
+      };
+
     case ADD_CUSTOMER:
-      return action.payload;
+      return {
+        ...state,
+        loading: false,
+        addCustomerSuccess: true
+      };
+
+    case CLEAR_SUCCESS:
+      return {
+        ...state,
+        addCustomerSuccess: false
+      };
 
     default:
       return state;

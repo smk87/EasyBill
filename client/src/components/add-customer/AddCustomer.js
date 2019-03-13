@@ -6,6 +6,7 @@ import Form1 from "../inputs/Form1";
 
 //Import needed actions
 import { addCustomer } from "../../store/actions/billAction";
+import Loading from "../common/Loading";
 
 class AddCustomer extends Component {
   constructor(props) {
@@ -48,8 +49,39 @@ class AddCustomer extends Component {
   };
 
   render() {
+    //Set Loading GIF
+    let loading = "";
+    if (this.props.bills.loading) {
+      loading = <Loading />;
+    }
+
+    //Set Success Message
+    let success = "";
+    if (this.props.bills.addCustomerSuccess) {
+      success = (
+        <h4 className="text-center mx-auto" style={{ color: "#7CEC9F" }}>
+          Added Customer Successfully.
+        </h4>
+      );
+    }
+
     return (
       <div>
+        <div class="row">
+          <div
+            class="col-3 mt-4"
+            style={{ marginLeft: "30px", marginBottom: "-40px" }}
+          >
+            <Link
+              to="/dashboard"
+              class="btn btn-secondary"
+              style={{ width: "85px" }}
+            >
+              Back
+            </Link>
+          </div>
+        </div>
+        {loading} {success}
         <div className="row justify-content-center">
           <div
             className="col-7 col-sm-6 col-md-4 col-lg-3 mt-5 formspace"
@@ -167,6 +199,11 @@ class AddCustomer extends Component {
     );
   }
 }
+
+AddCustomer.propTypes = {
+  bills: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   bills: state.bills,
