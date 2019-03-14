@@ -8,7 +8,8 @@ import {
   CLEAR_SUCCESS,
   GET_ERRORS,
   EDIT_CUSTOMER,
-  CUSTOMER_STOP_LOADING
+  CUSTOMER_STOP_LOADING,
+  DELETE_CUSTOMER
 } from "../actions/types";
 import axios from "axios";
 
@@ -47,6 +48,27 @@ export const editCustomer = (userData, history) => dispatch => {
       dispatch({
         type: CLEAR_SUCCESS
       });
+    });
+};
+
+//Delete Specific customer
+export const deleteCustomer = (userData, history) => dispatch => {
+  dispatch({
+    type: CUSTOMER_LOADING
+  });
+  axios
+    .delete(`/api/customer/${userData}`)
+    .then(newCus => {
+      dispatch({
+        type: DELETE_CUSTOMER,
+        payload: newCus.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: CUSTOMER_STOP_LOADING
+      });
+      console.log(err);
     });
 };
 

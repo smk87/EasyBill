@@ -145,6 +145,9 @@ class EditCustomer extends Component {
                   {current}
                   <select
                     name="current"
+                    defaultValue={
+                      this.state.current === true ? "true" : "false"
+                    }
                     className="custom-select"
                     id="inputGroupSelect01"
                     defaultValue="true"

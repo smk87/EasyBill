@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 import Loading from "../common/Loading";
 
 //Import needed actions
-import { getCustomers } from "../../store/actions/customerAction";
+import {
+  getCustomers,
+  deleteCustomer
+} from "../../store/actions/customerAction";
 
 class CustomerList extends Component {
   constructor(props) {
@@ -26,6 +29,12 @@ class CustomerList extends Component {
     }
   }
 
+  onClick = data => {
+    if (window.confirm("Delete this customer?"))
+      this.props.deleteCustomer(data);
+    else console.log(data);
+  };
+
   render() {
     //Getting row data from state via Redux
     let rowdata = this.state.customers.map(customer => (
@@ -43,9 +52,12 @@ class CustomerList extends Component {
           >
             Edit
           </Link>
-          <Link to="" className="btn btn-danger ml-3">
+          <button
+            onClick={() => this.onClick(customer._id)}
+            className="btn btn-danger ml-3"
+          >
             Delete
-          </Link>
+          </button>
         </td>
       </tr>
     ));
@@ -98,5 +110,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCustomers }
+  { getCustomers, deleteCustomer }
 )(CustomerList);

@@ -30,4 +30,18 @@ router.get(
   }
 );
 
+//@@ Delete specific customer, Post, Private
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Bill.findOneAndDelete({ _id: req.params.id })
+      .then(customers => {
+        if (customers) res.status(200).json(customers);
+        else res.status(400);
+      })
+      .catch(err => console.log(err));
+  }
+);
+
 module.exports = router;

@@ -3,8 +3,10 @@ import {
   CUSTOMER_LOADING,
   CLEAR_CUSTOMERS,
   EDIT_CUSTOMER,
-  CUSTOMER_STOP_LOADING
+  CUSTOMER_STOP_LOADING,
+  DELETE_CUSTOMER
 } from "../actions/types";
+import { stat } from "fs";
 
 const initialState = {
   loading: false,
@@ -26,6 +28,13 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         updatedCustomer: true
+      };
+
+    case DELETE_CUSTOMER:
+      return {
+        ...state,
+        loading: false,
+        list: state.list.filter(c => c._id !== action.payload._id)
       };
 
     case CLEAR_CUSTOMERS:
