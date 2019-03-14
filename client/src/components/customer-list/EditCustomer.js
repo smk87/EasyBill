@@ -3,16 +3,18 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Form1 from "../inputs/Form1";
+import axios from "axios";
 
 //Import needed actions
-import { addCustomer } from "../../store/actions/billAction";
+import { editCustomer } from "../../store/actions/customerAction";
 import Loading from "../common/Loading";
 
-class AddCustomer extends Component {
+class EditCustomer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      current: "",
       customername: "",
       meterno: "",
       position: "",
@@ -34,6 +36,7 @@ class AddCustomer extends Component {
     e.preventDefault();
 
     const newCus = {
+      current: this.state.current,
       customername: this.state.customername,
       meterno: this.state.meterno,
       position: this.state.position,
@@ -42,31 +45,62 @@ class AddCustomer extends Component {
       gasbill: this.state.gasbill,
       garagebill: this.state.garagebill,
       wastebill: this.state.wastebill,
-      basebill: this.state.basebill
+      basebill: this.state.basebill,
+      id: this.props.match.params.id
     };
 
-    this.props.addCustomer(newCus, this.props.history);
+    this.props.editCustomer(newCus, this.props.history);
   };
 
+  componentDidMount() {
+    axios
+      .get(`/api/customer/${this.props.match.params.id}`)
+      .then(customer => {
+        const upCus = customer.data[0];
+        this.setState({
+          current: upCus.current,
+          customername: upCus.customername,
+          meterno: upCus.meterno || "",
+          position: upCus.position,
+          waterbill: upCus.waterbill || "",
+          electricitybill: upCus.electricitybill || "",
+          gasbill: upCus.gasbill || "",
+          garagebill: upCus.garagebill || "",
+          wastebill: upCus.wastebill || "",
+          basebill: upCus.basebill || ""
+        });
+        console.log(upCus.current);
+      })
+      .catch(err => console.log(err));
+  }
+
   componentWillUnmount() {
-    this.props.bills.addCustomerSuccess = false;
+    this.props.customers.updatedCustomer = false;
   }
 
   render() {
     //Set Loading GIF
     let loading = "";
-    if (this.props.bills.loading) {
+    if (this.props.customers.loading) {
       loading = <Loading />;
     }
 
     //Set Success Message
     let success = "";
-    if (this.props.bills.addCustomerSuccess) {
+    if (this.props.customers.updatedCustomer) {
       success = (
         <h4 className="text-center mx-auto" style={{ color: "#7CEC9F" }}>
-          Added Customer Successfully.
+          Updated Customer Successfully.
         </h4>
       );
+    }
+
+    let current = "";
+    if (this.state.current === true) {
+      current = <h4 className="badge badge-success">Yes</h4>;
+    }
+    if (this.state.current === false) {
+      current = <h4 className="badge badge-danger">No</h4>;
     }
 
     return (
@@ -77,7 +111,7 @@ class AddCustomer extends Component {
             style={{ marginLeft: "30px", marginBottom: "-40px" }}
           >
             <Link
-              to="/dashboard"
+              to="/customers"
               className="btn btn-secondary"
               style={{ width: "85px" }}
             >
@@ -94,10 +128,33 @@ class AddCustomer extends Component {
             <form onSubmit={this.onSubmit}>
               <div className="row" style={{ borderRadius: "10px" }}>
                 <h3 className="text-center mx-auto" style={{ color: "black" }}>
-                  Add Customer
+                  Edit Customer
                 </h3>
               </div>
               <hr />
+
+              <div className="form-group row ">
+                <label
+                  className="col-sm-3 col-form-label"
+                  style={this.props.style}
+                >
+                  Current
+                </label>
+
+                <div className="col-12">
+                  {current}
+                  <select
+                    name="current"
+                    className="custom-select"
+                    id="inputGroupSelect01"
+                    defaultValue="true"
+                    onChange={this.onChange}
+                  >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </div>
+              </div>
               <Form1
                 style={{ color: "black" }}
                 label="Customer Name"
@@ -204,16 +261,16 @@ class AddCustomer extends Component {
   }
 }
 
-AddCustomer.propTypes = {
-  bills: PropTypes.object.isRequired,
+EditCustomer.propTypes = {
+  customers: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  bills: state.bills,
+  customers: state.customers,
   errors: state.errors
 });
 export default connect(
   mapStateToProps,
-  { addCustomer }
-)(AddCustomer);
+  { editCustomer }
+)(EditCustomer);

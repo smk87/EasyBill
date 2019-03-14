@@ -18,4 +18,16 @@ router.get("", passport.authenticate("jwt", { session: false }), (req, res) => {
     .then(customer => res.status(200).json(customer))
     .catch(err => console.log(err));
 });
+
+//@@ Get specific customer, Post, Private
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Bill.find({ _id: req.params.id })
+      .then(customer => res.status(200).json(customer))
+      .catch(err => console.log(err));
+  }
+);
+
 module.exports = router;

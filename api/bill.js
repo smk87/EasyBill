@@ -33,6 +33,7 @@ router.post(
       newCustomer.position = req.body.position;
 
       //Check for optional input
+      if (req.body.current) newCustomer.current = req.body.current;
       if (req.body.meterno) newCustomer.meterno = req.body.meterno;
       if (req.body.gasbill) newCustomer.gasbill = req.body.gasbill;
       if (req.body.waterbill) newCustomer.waterbill = req.body.waterbill;
@@ -43,15 +44,13 @@ router.post(
         newCustomer.electricitybill = req.body.electricitybill;
 
       Bill.findOne({
-        customername: req.body.customername,
-        position: req.body.position
+        _id: req.body.id
       }).then(customer => {
         if (customer) {
           //Edit
           Bill.findOneAndUpdate(
             {
-              customername: req.body.customername,
-              position: req.body.position
+              _id: req.body.id
             },
             { $set: newCustomer },
             { new: true }
@@ -73,4 +72,14 @@ router.post(
     }
   }
 );
+
+//@@ Get Bills for specific customer, Post, Private
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json(req.params.id);
+  }
+);
+
 module.exports = router;

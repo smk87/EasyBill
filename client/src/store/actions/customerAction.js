@@ -1,4 +1,15 @@
-import { GET_CUSTOMERS, CUSTOMER_LOADING } from "../actions/types";
+import {
+  GET_CUSTOMERS,
+  CUSTOMER_LOADING,
+  CLEAR_CUSTOMERS,
+  LOADING,
+  ADD_CUSTOMER,
+  STOP_LOADING,
+  CLEAR_SUCCESS,
+  GET_ERRORS,
+  EDIT_CUSTOMER,
+  CUSTOMER_STOP_LOADING
+} from "../actions/types";
 import axios from "axios";
 
 //Get all customers
@@ -10,4 +21,38 @@ export const getCustomers = (userdata, history) => dispatch => {
       payload: customers.data
     });
   });
+};
+
+//Edit specific customer
+export const editCustomer = (userData, history) => dispatch => {
+  dispatch({
+    type: CUSTOMER_LOADING
+  });
+  axios
+    .post("/api/bill", userData)
+    .then(res => {
+      dispatch({
+        type: EDIT_CUSTOMER
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+      dispatch({
+        type: CUSTOMER_STOP_LOADING
+      });
+      //Clear add customer success msg
+      dispatch({
+        type: CLEAR_SUCCESS
+      });
+    });
+};
+
+//Clear customers from store
+export const clearCustomers = dispatch => {
+  return {
+    type: CLEAR_CUSTOMERS
+  };
 };

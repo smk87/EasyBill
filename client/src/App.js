@@ -19,6 +19,7 @@ import PrivateRoute from "./components/common/PrivateRoute";
 import HomeTitle from "./components/common/HomeTitle";
 import AddCustomer from "./components/add-customer/AddCustomer";
 import CustomerList from "./components/customer-list/CustomerList";
+import EditCustomer from "./components/customer-list/EditCustomer";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -66,6 +67,20 @@ class App extends Component {
                   exact
                   path="/customers"
                   component={CustomerList}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/customer/:id"
+                  component={CustomerList}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/edit-customer/:id"
+                  component={EditCustomer}
                 />
               </Switch>
             </div>

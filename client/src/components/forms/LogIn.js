@@ -51,6 +51,7 @@ class LogIn extends Component {
   }
 
   render() {
+    //Sign Up success msg
     let success = "";
     if (this.props.auth.signupSuccess) {
       success = (

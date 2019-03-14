@@ -34,10 +34,13 @@ class CustomerList extends Component {
         <td>{customer.position}</td>
         <td>{customer.meterno}</td>
         <td>
-          <Link to="" className="btn btn-success">
+          <Link to={`/customer/${customer._id}`} className="btn btn-success">
             View Bills
           </Link>
-          <Link to="" className="btn btn-primary ml-3">
+          <Link
+            to={`/edit-customer/${customer._id}`}
+            className="btn btn-primary ml-3"
+          >
             Edit
           </Link>
           <Link to="" className="btn btn-danger ml-3">
@@ -86,7 +89,7 @@ class CustomerList extends Component {
 }
 
 CustomerList.propTypes = {
-  //   customers: PropTypes.object.isRequired
+  customers: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

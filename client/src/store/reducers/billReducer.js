@@ -16,7 +16,8 @@ export default function(state = initialState, action) {
     case LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
+        addCustomerSuccess: false
       };
 
     case STOP_LOADING:

@@ -1,4 +1,9 @@
-import { GET_ERRORS, SET_CURRENT_USER, SIGNUP_SUCCESS } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  SIGNUP_SUCCESS,
+  CLEAR_CUSTOMERS
+} from "./types";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./setAuthToken";
@@ -62,6 +67,7 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+  dispatch({ type: CLEAR_CUSTOMERS });
 };
 
 //Clear Signup success
