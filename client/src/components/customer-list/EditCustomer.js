@@ -69,7 +69,6 @@ class EditCustomer extends Component {
           wastebill: upCus.wastebill || "",
           basebill: upCus.basebill || ""
         });
-        console.log(upCus.current);
       })
       .catch(err => console.log(err));
   }
@@ -101,6 +100,35 @@ class EditCustomer extends Component {
     }
     if (this.state.current === false) {
       current = <h4 className="badge badge-danger">No</h4>;
+    }
+
+    //Set select component
+    let selected = "";
+    if (this.state.current) {
+      selected = (
+        <select
+          name="current"
+          className="custom-select"
+          id="inputGroupSelect01"
+          onChange={this.onChange}
+        >
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      );
+    }
+    if (!this.state.current) {
+      selected = (
+        <select
+          name="current"
+          className="custom-select"
+          id="inputGroupSelect01"
+          onChange={this.onChange}
+        >
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </select>
+      );
     }
 
     return (
@@ -138,24 +166,11 @@ class EditCustomer extends Component {
                   className="col-sm-3 col-form-label"
                   style={this.props.style}
                 >
-                  Current
+                  Currently Staying?
                 </label>
-
                 <div className="col-12">
                   {current}
-                  <select
-                    name="current"
-                    defaultValue={
-                      this.state.current === true ? "true" : "false"
-                    }
-                    className="custom-select"
-                    id="inputGroupSelect01"
-                    defaultValue="true"
-                    onChange={this.onChange}
-                  >
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                  </select>
+                  {selected}
                 </div>
               </div>
               <Form1

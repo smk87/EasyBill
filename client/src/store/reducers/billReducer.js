@@ -3,12 +3,14 @@ import {
   GET_ERRORS,
   LOADING,
   STOP_LOADING,
-  CLEAR_SUCCESS
+  CLEAR_SUCCESS,
+  GENERATE_BILL
 } from "../actions/types";
 
 const initialState = {
   loading: false,
-  addCustomerSuccess: false
+  addCustomerSuccess: false,
+  generateBillSuccess: false
 };
 
 export default function(state = initialState, action) {
@@ -33,10 +35,18 @@ export default function(state = initialState, action) {
         addCustomerSuccess: true
       };
 
+    case GENERATE_BILL:
+      return {
+        ...state,
+        loading: false,
+        generateBillSuccess: true
+      };
+
     case CLEAR_SUCCESS:
       return {
         ...state,
-        addCustomerSuccess: false
+        addCustomerSuccess: false,
+        generateBillSuccess: false
       };
 
     default:

@@ -57,10 +57,6 @@ router.post(
           ).then(customer => res.status(200).json(customer));
         } else {
           //Add
-
-          //console.log(newCustomer);
-          //res.json(newCustomer);
-
           new Bill(newCustomer)
             .save()
             .then(bill => res.status(200).json(bill))
@@ -73,12 +69,27 @@ router.post(
   }
 );
 
-//@@ Get Bills for specific customer, Post, Private
+//@@ Get Bills for specific customer, Get, Private
 router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.json(req.params.id);
+  }
+);
+
+//@@ Generate Bills for specific customer, Post, Private
+router.post(
+  "/:id/generate",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Bill.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: { electricitybill: req.body.bill } },
+      { new: true }
+    )
+      .then(newBill => res.status(200).json(newBill))
+      .catch(err => console.log(err));
   }
 );
 

@@ -32,9 +32,9 @@ class Dashboard extends Component {
           <Link to="/add-customer" className="btn btn-custom">
             Add Customer
           </Link>
-          <a href="" className="btn btn-custom ml-5">
+          <Link to="/generate" className="btn btn-custom ml-5">
             Generate Bills
-          </a>
+          </Link>
           <Link to="/customers" className="btn btn-custom ml-5">
             Customer List
           </Link>

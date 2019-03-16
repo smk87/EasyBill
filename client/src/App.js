@@ -20,6 +20,7 @@ import HomeTitle from "./components/common/HomeTitle";
 import AddCustomer from "./components/add-customer/AddCustomer";
 import CustomerList from "./components/customer-list/CustomerList";
 import EditCustomer from "./components/customer-list/EditCustomer";
+import GenerateBill from "./components/dashboard/GenerateBill";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -82,6 +83,9 @@ class App extends Component {
                   path="/edit-customer/:id"
                   component={EditCustomer}
                 />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/generate" component={GenerateBill} />
               </Switch>
             </div>
           </div>
