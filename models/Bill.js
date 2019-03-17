@@ -41,6 +41,9 @@ const Bill = new Schema({
   },
   bills: [
     {
+      date: {
+        type: Date
+      },
       gas: {
         type: Number
       },

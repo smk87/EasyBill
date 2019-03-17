@@ -21,6 +21,7 @@ import AddCustomer from "./components/add-customer/AddCustomer";
 import CustomerList from "./components/customer-list/CustomerList";
 import EditCustomer from "./components/customer-list/EditCustomer";
 import GenerateBill from "./components/dashboard/GenerateBill";
+import BillList from "./components/dashboard/BillList";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -71,11 +72,7 @@ class App extends Component {
                 />
               </Switch>
               <Switch>
-                <PrivateRoute
-                  exact
-                  path="/customer/:id"
-                  component={CustomerList}
-                />
+                <PrivateRoute exact path="/customer/:id" component={BillList} />
               </Switch>
               <Switch>
                 <PrivateRoute

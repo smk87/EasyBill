@@ -74,7 +74,9 @@ router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json(req.params.id);
+    Bill.findOne({ _id: req.params.id }).then(bills =>
+      res.status(200).json(bills)
+    );
   }
 );
 
@@ -88,7 +90,26 @@ router.post(
       { $set: { electricitybill: req.body.bill } },
       { new: true }
     )
-      .then(newBill => res.status(200).json(newBill))
+      .then(newBill => {
+        Bill.findOne({ _id: req.params.id })
+          .then(customer => {
+            const newBill = {
+              gas: customer.garagebill,
+              water: customer.wastebill,
+              electricity: customer.electricitybill,
+              base: customer.basebill,
+              garage: customer.garagebill,
+              waste: customer.wastebill,
+              date: new Date().toJSON().slice(0, 10)
+            };
+            customer.bills.unshift(newBill);
+            customer
+              .save()
+              .then(savedBill => res.status(200).json(savedBill))
+              .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
+      })
       .catch(err => console.log(err));
   }
 );
