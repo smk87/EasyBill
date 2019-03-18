@@ -33,7 +33,6 @@ mongoose
 const port = process.env.PORT || 5000;
 
 //Routes
-app.get("", (req, res) => res.send("hello world"));
 app.use("/api/user", user);
 app.use("/api/bill", bill);
 app.use("/api/customer", customer);
