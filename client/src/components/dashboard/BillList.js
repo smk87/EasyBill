@@ -24,7 +24,6 @@ class BillList extends Component {
   componentDidMount() {
     axios.get(`/api/bill/${this.props.match.params.id}`).then(bill => {
       this.setState({ bill: bill.data, list: bill.data.bills });
-      console.log(bill.data);
     });
   }
 

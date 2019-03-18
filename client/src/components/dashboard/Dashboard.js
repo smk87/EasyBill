@@ -28,27 +28,30 @@ class Dashboard extends Component {
 
   render() {
     //Getting row data from state via Redux
-    let rowdata = this.state.customers.map(customer => (
-      <tr key={customer._id}>
-        <th scope="row">{customer.customername}</th>
-        <td>{customer.position}</td>
-        <td>{customer.bills[0].date.slice(0, 10)}</td>
-        <td>{customer.bills[0].base || 0}</td>
-        <td>{customer.bills[0].water || 0}</td>
-        <td>{customer.bills[0].electricity || 0}</td>
-        <td>{customer.bills[0].gas || 0}</td>
-        <td>{customer.bills[0].waste || 0}</td>
-        <td>{customer.bills[0].garage || 0}</td>
-        <td>
-          {(customer.bills[0].garage || 0) +
-            (customer.bills[0].waste || 0) +
-            (customer.bills[0].gas || 0) +
-            (customer.bills[0].electricity || 0) +
-            (customer.bills[0].water || 0) +
-            (customer.bills[0].base || 0)}
-        </td>
-      </tr>
-    ));
+    let rowdata = this.state.customers.map(customer => {
+      if (customer.current)
+        return (
+          <tr key={customer._id}>
+            <th scope="row">{customer.customername}</th>
+            <td>{customer.position}</td>
+            <td>{customer.bills[0].date.slice(0, 10)}</td>
+            <td>{customer.bills[0].base || 0}</td>
+            <td>{customer.bills[0].water || 0}</td>
+            <td>{customer.bills[0].electricity || 0}</td>
+            <td>{customer.bills[0].gas || 0}</td>
+            <td>{customer.bills[0].waste || 0}</td>
+            <td>{customer.bills[0].garage || 0}</td>
+            <td>
+              {(customer.bills[0].garage || 0) +
+                (customer.bills[0].waste || 0) +
+                (customer.bills[0].gas || 0) +
+                (customer.bills[0].electricity || 0) +
+                (customer.bills[0].water || 0) +
+                (customer.bills[0].base || 0)}
+            </td>
+          </tr>
+        );
+    });
 
     return (
       <div>
