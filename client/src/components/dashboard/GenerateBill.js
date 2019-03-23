@@ -44,7 +44,6 @@ class GenerateBill extends Component {
     this.state.electricitybill[index] = bill;
     this.state.waterbill[index] = wbill;
     this.state.id[index] = id;
-    console.log(this.state.waterbill);
   };
 
   onClick = (id, bill, wbill) => {
