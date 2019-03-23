@@ -29,7 +29,7 @@ class Dashboard extends Component {
   render() {
     //Getting row data from state via Redux
     let rowdata = this.state.customers.map(customer => {
-      if (customer.current)
+      if (customer.current && customer.bills.length > 0)
         return (
           <tr key={customer._id}>
             <th scope="row">{customer.customername}</th>

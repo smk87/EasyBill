@@ -267,7 +267,7 @@ class EditCustomer extends Component {
                       backgroundColor: "#019031"
                     }}
                   >
-                    Add Customer
+                    Update Customer
                   </button>
                 </div>
               </div>
