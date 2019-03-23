@@ -15,13 +15,19 @@ const Bill = require("../models/Bill");
 //@@ Add or Edit Bill, Post, Private
 router.post(
   "",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", {
+    session: false
+  }),
   (req, res) => {
     errors = {};
-    if (validate.isEmpty(req.body.customername, { ignore_whitespace: true })) {
+    if (validate.isEmpty(req.body.customername, {
+        ignore_whitespace: true
+      })) {
       errors.customername = "Customer name can not be empty";
     }
-    if (validate.isEmpty(req.body.position, { ignore_whitespace: true })) {
+    if (validate.isEmpty(req.body.position, {
+        ignore_whitespace: true
+      })) {
       errors.position = "Position can not be empty";
     }
 
@@ -48,13 +54,13 @@ router.post(
       }).then(customer => {
         if (customer) {
           //Edit
-          Bill.findOneAndUpdate(
-            {
-              _id: req.body.id
-            },
-            { $set: newCustomer },
-            { new: true }
-          ).then(customer => res.status(200).json(customer));
+          Bill.findOneAndUpdate({
+            _id: req.body.id
+          }, {
+            $set: newCustomer
+          }, {
+            new: true
+          }).then(customer => res.status(200).json(customer));
         } else {
           //Add
           new Bill(newCustomer)
@@ -72,9 +78,13 @@ router.post(
 //@@ Get Bills for specific customer, Get, Private
 router.get(
   "/:id",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", {
+    session: false
+  }),
   (req, res) => {
-    Bill.findOne({ _id: req.params.id }).then(bills =>
+    Bill.findOne({
+      _id: req.params.id
+    }).then(bills =>
       res.status(200).json(bills)
     );
   }
@@ -83,19 +93,28 @@ router.get(
 //@@ Generate Bills for specific customer, Post, Private
 router.post(
   "/:id/generate",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", {
+    session: false
+  }),
   (req, res) => {
-    Bill.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: { electricitybill: req.body.bill } },
-      { new: true }
-    )
+    Bill.findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        $set: {
+          electricitybill: req.body.bill,
+          waterbill: req.body.wbill
+        }
+      }, {
+        new: true
+      })
       .then(newBill => {
-        Bill.findOne({ _id: req.params.id })
+        Bill.findOne({
+            _id: req.params.id
+          })
           .then(customer => {
             const newBill = {
               gas: customer.garagebill,
-              water: customer.wastebill,
+              water: customer.waterbill,
               electricity: customer.electricitybill,
               base: customer.basebill,
               garage: customer.garagebill,

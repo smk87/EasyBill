@@ -36,15 +36,20 @@ export const addCustomer = (userData, history) => dispatch => {
 };
 
 //Generate Bill
-export const generateBill = (id, bill) => dispatch => {
+export const generateBill = (id, bill, wbill) => dispatch => {
   dispatch({
     type: LOADING
   });
   axios
-    .post(`/api/bill/${id}/generate`, { bill: bill })
+    .post(`/api/bill/${id}/generate`, {
+      bill: bill,
+      wbill: wbill
+    })
     .then(res => {
-      console.log(res.data);
-      dispatch({ type: GENERATE_BILL });
+      //console.log(res.data);
+      dispatch({
+        type: GENERATE_BILL
+      });
     })
     .catch(err => {
       dispatch({

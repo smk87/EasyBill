@@ -19,7 +19,8 @@ class GenerateBill extends Component {
     this.state = {
       customers: [],
       id: [],
-      electricitybill: []
+      electricitybill: [],
+      waterbill: []
     };
   }
 
@@ -37,19 +38,23 @@ class GenerateBill extends Component {
     }
   }
 
-  onChange = (e, id, bill, index) => {
+  onChange = (e, id, bill, wbill, index) => {
     e.preventDefault();
 
     this.state.electricitybill[index] = bill;
+    this.state.waterbill[index] = wbill;
     this.state.id[index] = id;
+    console.log(this.state.waterbill);
   };
 
-  onClick = (id, bill) => {
-    this.props.generateBill(id, bill);
+  onClick = (id, bill, wbill) => {
+    this.props.generateBill(id, bill, wbill);
   };
 
-  genAll = (bills, ids) => {
-    bills.map((bill, index) => this.props.generateBill(ids[index], bill));
+  genAll = (bills, wbills, ids) => {
+    bills.map((bill, index) =>
+      this.props.generateBill(ids[index], bill, wbills[index])
+    );
   };
 
   render() {
@@ -71,6 +76,22 @@ class GenerateBill extends Component {
                   e,
                   customer._id,
                   document.getElementsByName("bill")[index].value,
+                  document.getElementsByName("wbill")[index].value,
+                  index
+                )
+              }
+            />
+            <input
+              name="wbill"
+              type="number"
+              className="form-control"
+              placeholder="Enter New Water Bill"
+              onChange={e =>
+                this.onChange(
+                  e,
+                  customer._id,
+                  document.getElementsByName("bill")[index].value,
+                  document.getElementsByName("wbill")[index].value,
                   index
                 )
               }
@@ -82,7 +103,7 @@ class GenerateBill extends Component {
                 this.onClick(
                   customer._id,
                   document.getElementsByName("bill")[index].value,
-                  index
+                  document.getElementsByName("wbill")[index].value
                 )
               }
               className="btn btn-success"
@@ -145,7 +166,13 @@ class GenerateBill extends Component {
           </table>
         </div>
         <button
-          onClick={() => this.genAll(this.state.electricitybill, this.state.id)}
+          onClick={() =>
+            this.genAll(
+              this.state.electricitybill,
+              this.state.waterbill,
+              this.state.id
+            )
+          }
           className="btn btn-success mt-2"
         >
           Generate All
