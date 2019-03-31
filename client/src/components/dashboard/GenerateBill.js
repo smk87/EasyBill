@@ -85,6 +85,7 @@ class GenerateBill extends Component {
               type="number"
               className="form-control"
               placeholder="Enter New Water Bill"
+              style={{ display: "none" }}
               onChange={e =>
                 this.onChange(
                   e,
