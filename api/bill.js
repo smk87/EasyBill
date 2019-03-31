@@ -102,7 +102,7 @@ router.post(
       }, {
         $set: {
           electricitybill: req.body.bill,
-          waterbill: req.body.wbill
+          //waterbill: req.body.wbill
         }
       }, {
         new: true
@@ -113,7 +113,7 @@ router.post(
           })
           .then(customer => {
             const newBill = {
-              gas: customer.garagebill,
+              gas: customer.gasbill,
               water: customer.waterbill,
               electricity: customer.electricitybill,
               base: customer.basebill,
